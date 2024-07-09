@@ -14,6 +14,12 @@
     <Filter Include="KamataEngine\Adapter">
       <UniqueIdentifier>{c6468eb4-788b-4a83-b207-a5f4804e56c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cpp.file">
+      <UniqueIdentifier>{887b56ad-7a55-4fc7-b260-99cc27b646da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header.file">
+      <UniqueIdentifier>{b41b2371-d219-4124-b51e-6c03d85ac35c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -37,6 +43,18 @@
     </ClCompile>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\StringUtility.cpp">
       <Filter>KamataEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>cpp.file</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>cpp.file</Filter>
+    </ClCompile>
+    <ClCompile Include="Maths.cpp">
+      <Filter>cpp.file</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>cpp.file</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +128,21 @@
     <ClInclude Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\base\StringUtility.h">
       <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>header.file</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>header.file</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths.h">
+      <Filter>header.file</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>header.file</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>header.file</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

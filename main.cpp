@@ -1,52 +1,17 @@
 #include <Novice.h>
-
-const char kWindowTitle[] = "GC2A_02_アリマ_ナオト";
+#include <Game.h>
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
-	// ライブラリの初期化
-	Novice::Initialize(kWindowTitle, 1280, 720);
+	//Gameクラスのインスタンスの作成
+	Game* game = new Game();
 
-	// キー入力結果を受け取る箱
-	char keys[256] = {0};
-	char preKeys[256] = {0};
-
-	// ウィンドウの×ボタンが押されるまでループ
-	while (Novice::ProcessMessage() == 0) {
-		// フレームの開始
-		Novice::BeginFrame();
-
-		// キー入力を受け取る
-		memcpy(preKeys, keys, 256);
-		Novice::GetHitKeyStateAll(keys);
-
-		///
-		/// ↓更新処理ここから
-		///
-
-		///
-		/// ↑更新処理ここまで
-		///
-
-		///
-		/// ↓描画処理ここから
-		///
-
-		///
-		/// ↑描画処理ここまで
-		///
-
-		// フレームの終了
-		Novice::EndFrame();
-
-		// ESCキーが押されたらループを抜ける
-		if (preKeys[DIK_ESCAPE] == 0 && keys[DIK_ESCAPE] != 0) {
-			break;
-		}
-	}
+	//処理を一つにまとめたGameクラスのメンバ関数Mainを呼び出す
+	game->Main();
 
 	// ライブラリの終了
 	Novice::Finalize();
+	delete game;
 	return 0;
 }
