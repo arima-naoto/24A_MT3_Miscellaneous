@@ -1,4 +1,5 @@
 #include <Novice.h>
+#include <Calculation.h>
 
 const char kWindowTitle[] = "GC2A_02_アリマ_ナオト";
 
@@ -32,6 +33,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
+
+		Calculation::Main();
 
 		///
 		/// ↑描画処理ここまで
