@@ -17,6 +17,8 @@ Camera::Camera(Affine affine)
 	//プロジェクション行列
 	projectionMatrix_ = {};
 
+	viewProjectionMatrix_ = {};
+
 	//ビューポート行列
 	viewportMatrix_ = {};
 
@@ -27,44 +29,25 @@ Camera::Camera(Affine affine)
 Camera::~Camera(){}
 
 /// アフィン行列の作成
-void Camera::MakeAffineMatrix(Affine affine)
-{
-	//Mathsクラスからメンバ関数AffinnMatrixを呼び出す
-	cameraWorldMatrix_ = Maths::STRAffineMatrix(affine);
-}
+void Camera::MakeAffineMatrix(Affine affine){ cameraWorldMatrix_ = Maths::STRAffineMatrix(affine);}
 
-/// ビュー行列の作成
-void Camera::MakeViewMatrix() 
-{
-	//Mathsクラスからメンバ関数Inverseを呼び出す
-	viewMatrix_ = Maths::Inverse(cameraWorldMatrix_);
-}
+void Camera::MakeViewMatrix() { viewMatrix_ = Maths::Inverse(cameraWorldMatrix_);}
 
-/// プロジェクション行列の作成
-void Camera::MakeProjectionMatrix() 
-{
-	//Mathクラスからメンバ関数MakePerspectiveFovMatrixを呼び出す
-	projectionMatrix_ = Maths::MakePerspectiveFovMatrix(0.45f, kWindowWidth_ / kWindowHeight_, 0.1f, 100.0f);
-}
+void Camera::MakeProjectionMatrix() {
+	projectionMatrix_ = Maths::MakePerspectiveFovMatrix(0.45f, kWindowWidth_ / kWindowHeight_, 0.1f, 100.0f);}
 
-/// ビューポート行列の作成
-void Camera::MakeViewportMatrix() 
-{
-	//MathsクラスからViewportを呼び出す
-	viewportMatrix_ = Maths::ViewportMatrix(0, 0, kWindowWidth_, kWindowHeight_, 0.0f, 1.0f);
-}
+void Camera::MakeViewProjectionMatrix() { viewProjectionMatrix_ = Multiply(viewMatrix_, projectionMatrix_);}
 
-/// ビュー行列のゲッターの戻り値を設定する
+void Camera::MakeViewportMatrix() { viewportMatrix_ = Maths::ViewportMatrix(0, 0, kWindowWidth_, kWindowHeight_, 0.0f, 1.0f);}
+
 Matrix4x4 Camera::GetViewMatrix() { return viewMatrix_; }
 
-/// プロジェクション行列のゲッターの戻り値を設定する
 Matrix4x4 Camera::GetProjectionMatrix() { return projectionMatrix_; }
 
-/// ビューポート行列のゲッターの戻り値を設定する
+Matrix4x4 Camera::GetViewProjectionMatrix() { return viewProjectionMatrix_; }
+
 Matrix4x4 Camera::GetViewportMatrix() { return viewportMatrix_; }
 
-/// 画面横幅のゲッターの戻り値を設定する
 float Camera::GetKWindowWidth() { return kWindowWidth_; }
 
-/// 画面縦幅のゲッターの戻り値を設定する
 float Camera::GetKWindowHeight() { return kWindowHeight_; }

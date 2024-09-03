@@ -23,6 +23,9 @@ public://メンバ関数
 	/// プロジェクション行列
 	void MakeProjectionMatrix();
 
+
+	void MakeViewProjectionMatrix();
+
 	/// ビューポート行列
 	void MakeViewportMatrix();
 
@@ -33,6 +36,8 @@ public://メンバ変数のゲッター
 	
 	//プロジェクション行列のゲッター
 	Matrix4x4 GetProjectionMatrix();
+
+	Matrix4x4 GetViewProjectionMatrix();
 
 	//ビューポート行列のゲッター
 	Matrix4x4 GetViewportMatrix();
@@ -56,6 +61,8 @@ private://メンバ変数
 
 	//プロジェクション行列
 	Matrix4x4 projectionMatrix_;
+
+	Matrix4x4 viewProjectionMatrix_;
 
 	//ビューポート行列
 	Matrix4x4 viewportMatrix_;

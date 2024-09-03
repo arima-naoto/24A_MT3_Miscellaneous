@@ -14,14 +14,10 @@ public://メンバ関数
 
 	/// アフィン行列
 	void MakeAffineMatrix(Affine affine);
+	void MakeElbowAffineMatrix(Affine affine);
 
-	/// ワールドビュープロプロジェクション行列
-	void MakeWorldViewProjectionMatrix(const Matrix4x4 &viewMatrix,const Matrix4x4& projectionMatrix);
-
-public:
-
-	/// ビュープロジェクション行列のゲッター
-	Matrix4x4 GetViewProjectionMatrix();
+	Matrix4x4 GetShoulderMatrix() { return this->shoulderMatrix_; }
+	Matrix4x4 GetElbowMatrix() { return this->elbowMatrix_; }
 
 private://メンバ変数
 
@@ -29,10 +25,10 @@ private://メンバ変数
 	Affine affine_;
 
 	//ワールド行列
-	Matrix4x4 worldMatrix_;
+	Matrix4x4 shoulderMatrix_;
 
-	//ワールドビュープロジェクション行列
-	Matrix4x4 worldViewprojectioinMatrix_;
+	Matrix4x4 elbowMatrix_;
+
 };
 
 

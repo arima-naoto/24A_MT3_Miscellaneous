@@ -11,8 +11,20 @@ Game::Game()
 	//ワールドアフィン
 	worldAffine_ = {
 		.scale{1.0f,1.0f,1.0f},
-		.rotate{0,0,0},
-		.translate{0,0,0},
+		.rotate{0,0,-6.8f},
+		.translate{0.2f,1.0f,0},
+	};
+
+	elbowAffine_ = {
+		.scale{1.0f,1.0f,1.0f},
+		.rotate{0.0f,0.0f,-1.4f},
+		.translate{0.4f,0.0f,0.0f}
+	};
+
+	handAffine_ = {
+		.scale{1.0f,1.0f,1.0f},
+		.rotate{0.f,0.f,0.f},
+		.translate{.3f,0.f,0.f}
 	};
 
 	//ワールドクラスのインスタンスを作成
@@ -20,19 +32,14 @@ Game::Game()
 
 	//カメラアフィン
 	cameraAffine_ = {
-		.scale{ 1.0f,1.0f,1.0f },//倍率
-		.rotate{ 0.26f,0.0f,0.0f },//回転
-		.translate{ 0.0f,0.2f,-6.77f }//座標
+		{ 1.0f,1.0f,1.0f },
+		{ 0.26f,0.0f,0.0f },
+		{ 0.0f,0.2f,-6.77f }
 	};
 
 	//カメラクラスのインスタンスを作成
 	camera_ = new Camera(cameraAffine_);
 	
-	///コントロールポイント
-	controlPoints[0] = { -0.8f,0.58f,1.0f };
-	controlPoints[1] = { 1.76f,1.0f,-0.3f };
-	controlPoints[2] = { 0.94f,-0.7f,2.3f };
-
 	prevMouseX_ = 0;
 	prevMouseY_ = 0;
 	
@@ -64,6 +71,12 @@ void Game::Rendering()
 	//ワールド行列
 	world_->MakeAffineMatrix(worldAffine_);
 
+	world_->MakeElbowAffineMatrix(elbowAffine_);
+
+	
+	Matrix4x4 localHand = Maths::SRTAffineMatrix(handAffine_);
+	handMatrix_ = localHand * world_->GetElbowMatrix();
+
 	//カメラワールド行列
 	camera_->MakeAffineMatrix(cameraAffine_);
 
@@ -74,7 +87,7 @@ void Game::Rendering()
 	camera_->MakeProjectionMatrix();
 
 	//ワールドビュープロジェクション行列
-	world_->MakeWorldViewProjectionMatrix(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
+	camera_->MakeViewProjectionMatrix();
 
 	//ビューポート行列
 	camera_->MakeViewportMatrix();
@@ -87,7 +100,9 @@ void Game::MoveScale() {
 
 	 if (wheel != 0 ) {
 		 // 現在のカメラ倍率を保持
-		 cameraAffine_.translate.z -= (wheel / 1024.0f);
+		 cameraAffine_.scale.z -= (wheel / 2024.f);
+		 cameraAffine_.scale.z = (std::max)(cameraAffine_.scale.z, 0.5f);
+		 cameraAffine_.scale.z = (std::min)(cameraAffine_.scale.z, 1.0f);
 	 }
 }
 
@@ -143,9 +158,18 @@ void Game::DrawDebugText()
 	///デバッグテキストの描画
 	ImGui::Begin("DebugWindow");
 	///コントロールポイント
-	ImGui::DragFloat3("ControlPoints[0]", &controlPoints[0].x, 0.01f);
-	ImGui::DragFloat3("ControlPoints[1]", &controlPoints[1].x, 0.01f);
-	ImGui::DragFloat3("ControlPoints[2]", &controlPoints[2].x, 0.01f);
+	ImGui::DragFloat3("translate[0]", &worldAffine_.translate.x, 0.01f);
+	ImGui::DragFloat3("rotate[0]", &worldAffine_.rotate.x, 0.01f);
+	ImGui::DragFloat3("scale[0]", &worldAffine_.scale.x, 0.01f);
+
+	ImGui::DragFloat3("translate[1]", &elbowAffine_.translate.x, 0.01f);
+	ImGui::DragFloat3("rotate[1]", &elbowAffine_.rotate.x, 0.01f);
+	ImGui::DragFloat3("scale[1]", &elbowAffine_.scale.x, 0.01f);
+
+	ImGui::DragFloat3("translate[2]", &handAffine_.translate.x, 0.01f);
+	ImGui::DragFloat3("rotate[2]", &handAffine_.rotate.x, 0.01f);
+	ImGui::DragFloat3("scale[2]", &handAffine_.scale.x, 0.01f);
+
 	ImGui::End();
 }
 
@@ -295,24 +319,34 @@ void Game::Draw()
 
 	//グリッドを描画する色
 	uint32_t gridColor = GRAY;
-	uint32_t sphereColor = BLACK;
-	uint32_t bezierColor = BLUE;
 
-	//グリッド線を描画する
-	Game::DrawGrid(world_->GetViewProjectionMatrix(), camera_->GetViewportMatrix(), gridColor);
+	Sphere sphere[3];
+	sphere[0] = {{worldAffine_.translate}, 0.055f};
+	sphere[1] = {{elbowAffine_.translate}, 0.055f};
+	sphere[2] = {{handAffine_.translate}, 0.055f};
+	
+	Game::DrawGrid(camera_->GetViewProjectionMatrix(), camera_->GetViewportMatrix(), gridColor);
 
-	//ベジエ曲線を描画する
-	Game::DrawBezier(controlPoints[0], controlPoints[1], controlPoints[2], 
-		world_->GetViewProjectionMatrix(),camera_->GetViewportMatrix(), bezierColor);
+	Matrix4x4 elbowViewProjectionMatrix = world_->GetShoulderMatrix() * camera_->GetViewProjectionMatrix();
+	Matrix4x4 handViewProjectionMatrix = world_->GetElbowMatrix() * camera_->GetViewProjectionMatrix();
 
-	Sphere pointSphere[3];
+	Game::DrawSphere(sphere[0], camera_->GetViewProjectionMatrix(), camera_->GetViewportMatrix(), RED);
+	Game::DrawSphere(sphere[1], elbowViewProjectionMatrix, camera_->GetViewportMatrix(), GREEN);
+	Game::DrawSphere(sphere[2], handViewProjectionMatrix, camera_->GetViewportMatrix(), BLUE);
 
-	///0.01fの球体を3つ描画する
-	for (int32_t i = 0; i < 3; i++) {
-		pointSphere[i] = { controlPoints[i],0.01f };
-		
-		Game::DrawSphere(pointSphere[i], world_->GetViewProjectionMatrix(), camera_->GetViewportMatrix(), sphereColor);
-	}
+	Vector3 localAxis[3];
+	localAxis[0] = { worldAffine_.translate };
+	localAxis[1] = { elbowAffine_.translate };
+	localAxis[2] = { handAffine_.translate };
+
+	Vector3 screenAxis[3];
+	screenAxis[0] = Transform(Transform(localAxis[0], camera_->GetViewProjectionMatrix()),camera_->GetViewportMatrix());
+	screenAxis[1] = Transform(Transform(localAxis[1], elbowViewProjectionMatrix),camera_->GetViewportMatrix());
+	screenAxis[2] = Transform(Transform(localAxis[2], handViewProjectionMatrix),camera_->GetViewportMatrix());
+
+	Novice::DrawLine((int)screenAxis[0].x, (int)screenAxis[0].y, (int)screenAxis[1].x, (int)screenAxis[1].y, WHITE);
+	Novice::DrawLine((int)screenAxis[1].x, (int)screenAxis[1].y, (int)screenAxis[2].x, (int)screenAxis[2].y, WHITE);
+
 }
 
 #pragma endregion

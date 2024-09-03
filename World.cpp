@@ -10,10 +10,9 @@ World::World(Affine affine)
 	affine_ = affine;
 
 	//ワールド行列
-	worldMatrix_ = {};
+	shoulderMatrix_ = {};
 
-	//ワールドビュープロジェクション行列
-	worldViewprojectioinMatrix_ = {};
+	elbowMatrix_ = {};
 
 #pragma endregion
 
@@ -26,15 +25,9 @@ World::~World(){}
 void World::MakeAffineMatrix(Affine affine)
 {
 	//Mathsクラスからメンバ関数AffineMatrixを呼び出す
-	worldMatrix_ = Maths::SRTAffineMatrix(affine);
+	shoulderMatrix_ = Maths::SRTAffineMatrix(affine);
 }
 
-/// ビュープロジェクション行列を作成する
-void World::MakeWorldViewProjectionMatrix(const Matrix4x4& viewMatrix,const Matrix4x4& projectionMatrix) 
-{
-	//Mathsクラスからメンバ関数Multiplyを呼び出す
-	worldViewprojectioinMatrix_ = Maths::Multiply(worldMatrix_, Maths::Multiply(viewMatrix, projectionMatrix));
+void World::MakeElbowAffineMatrix(Affine affine) {
+	elbowMatrix_ = Maths::SRTAffineMatrix(affine) * shoulderMatrix_;
 }
-
-/// ビュープロジェクション行列のゲッターの戻り値を設定する
-Matrix4x4 World::GetViewProjectionMatrix() { return worldViewprojectioinMatrix_; }

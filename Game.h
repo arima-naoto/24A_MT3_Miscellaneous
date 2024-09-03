@@ -60,6 +60,8 @@ private://メンバ変数
 
 	//ワールドアフィン
 	Affine worldAffine_;
+	Affine elbowAffine_;
+	Affine handAffine_;
 
 	//ワールドクラス
 	World* world_;
@@ -72,6 +74,8 @@ private://メンバ変数
 
 	///コントローラポイント
 	Vector3 controlPoints[3];
+
+	Matrix4x4 handMatrix_;
 
 	int prevMouseX_;
 	int prevMouseY_;
