@@ -160,15 +160,15 @@ void Game::DrawDebugText()
 	///コントロールポイント
 	ImGui::DragFloat3("translate[0]", &worldAffine_.translate.x, 0.01f);
 	ImGui::DragFloat3("rotate[0]", &worldAffine_.rotate.x, 0.01f);
-	ImGui::DragFloat3("scale[0]", &worldAffine_.scale.x, 0.01f);
+	//ImGui::DragFloat3("scale[0]", &worldAffine_.scale.x, 0.01f);
 
 	ImGui::DragFloat3("translate[1]", &elbowAffine_.translate.x, 0.01f);
 	ImGui::DragFloat3("rotate[1]", &elbowAffine_.rotate.x, 0.01f);
-	ImGui::DragFloat3("scale[1]", &elbowAffine_.scale.x, 0.01f);
+	//ImGui::DragFloat3("scale[1]", &elbowAffine_.scale.x, 0.01f);
 
 	ImGui::DragFloat3("translate[2]", &handAffine_.translate.x, 0.01f);
 	ImGui::DragFloat3("rotate[2]", &handAffine_.rotate.x, 0.01f);
-	ImGui::DragFloat3("scale[2]", &handAffine_.scale.x, 0.01f);
+	//ImGui::DragFloat3("scale[2]", &handAffine_.scale.x, 0.01f);
 
 	ImGui::End();
 }
