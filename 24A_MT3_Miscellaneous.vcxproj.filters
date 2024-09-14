@@ -14,6 +14,21 @@
     <Filter Include="KamataEngine\Adapter">
       <UniqueIdentifier>{c6468eb4-788b-4a83-b207-a5f4804e56c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="project">
+      <UniqueIdentifier>{108f205b-3b02-4bd2-a01d-c28c1196f7be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="project\view">
+      <UniqueIdentifier>{51b4c454-b55f-4e2a-9a24-ebc54328ffc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="project\math">
+      <UniqueIdentifier>{b5acc38e-305d-4fc8-b883-207d9be889fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="project\gameObject">
+      <UniqueIdentifier>{deff5126-5877-4248-861d-2d37f2bb8c64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="project\math\Pipeline">
+      <UniqueIdentifier>{a6cdc019-96e0-448a-ad88-5730fbf62ff2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -37,6 +52,33 @@
     </ClCompile>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\StringUtility.cpp">
       <Filter>KamataEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="project\math\Calculator.cpp">
+      <Filter>project\math</Filter>
+    </ClCompile>
+    <ClCompile Include="project\math\Arithmetic.cpp">
+      <Filter>project\math</Filter>
+    </ClCompile>
+    <ClCompile Include="project\math\Pipeline\Rendering.cpp">
+      <Filter>project\math\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="project\view\World.cpp">
+      <Filter>project\view</Filter>
+    </ClCompile>
+    <ClCompile Include="project\view\Camera.cpp">
+      <Filter>project\view</Filter>
+    </ClCompile>
+    <ClCompile Include="project\Game.cpp">
+      <Filter>project</Filter>
+    </ClCompile>
+    <ClCompile Include="project\gameObject\Sphere.cpp">
+      <Filter>project\gameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="project\gameObject\Grid.cpp">
+      <Filter>project\gameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="project\gameObject\CatmullRom.cpp">
+      <Filter>project\gameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +152,36 @@
     <ClInclude Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\base\StringUtility.h">
       <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="project\math\Structure.h">
+      <Filter>project\math</Filter>
+    </ClInclude>
+    <ClInclude Include="project\math\Arithmetic.h">
+      <Filter>project\math</Filter>
+    </ClInclude>
+    <ClInclude Include="project\math\Calculator.h">
+      <Filter>project\math</Filter>
+    </ClInclude>
+    <ClInclude Include="project\math\Pipeline\Rendering.h">
+      <Filter>project\math\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="project\view\World.h">
+      <Filter>project\view</Filter>
+    </ClInclude>
+    <ClInclude Include="project\view\Camera.h">
+      <Filter>project\view</Filter>
+    </ClInclude>
+    <ClInclude Include="project\Game.h">
+      <Filter>project</Filter>
+    </ClInclude>
+    <ClInclude Include="project\gameObject\Sphere.h">
+      <Filter>project\gameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="project\gameObject\Grid.h">
+      <Filter>project\gameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="project\gameObject\CatmullRom.h">
+      <Filter>project\gameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

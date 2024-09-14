@@ -1,4 +1,5 @@
 #include <Novice.h>
+#include "project/Game.h"
 
 const char kWindowTitle[] = "GC2A_02_アリマ_ナオト";
 
@@ -11,6 +12,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// キー入力結果を受け取る箱
 	char keys[256] = {0};
 	char preKeys[256] = {0};
+
+	unique_ptr<Game> game = make_unique<Game>();
+	game->Initialize();
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -25,6 +29,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
+		game->Update();
+
 		///
 		/// ↑更新処理ここまで
 		///
@@ -32,6 +38,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
+
+		game->Draw();
 
 		///
 		/// ↑描画処理ここまで
