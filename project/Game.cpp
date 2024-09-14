@@ -24,7 +24,11 @@ void Game::Initialize() {
 		.translate{ 0.0f,0.2f,-6.77f }
 	};
 
-	
+	//コントロールポイント
+	controlPoints[0] = { -0.8f,  0.58f,1.0f   };
+	controlPoints[1] = {  1.76f, 1.0f,-0.3f   };
+	controlPoints[2] = {  0.94f,-0.7f, 2.3f   };
+	controlPoints[3] = { -0.53f,-0.26f,-0.15f };
 
 }
 
@@ -41,18 +45,44 @@ void Game::Draw(){
 
 	enum ObjectColor {
 		kGrid = GRAY,
-		kSphere = BLACK
+		kSphere = BLACK,
+		kCatmullRom = BLUE
 	};
 
-	Spherical sphere = {
-		.center{0.0f,0.0f,0.0f},
-		.radius{0.6f}
+#pragma region コントロールポイント
+
+	Spherical sphere[4];
+	sphere[0] = {
+		.center{controlPoints[0]},
+		.radius{0.01f}
 	};
+
+	sphere[1] = {
+		.center{controlPoints[1]},
+		.radius{0.01f}
+	};
+
+	sphere[2] = {
+		.center{controlPoints[2]},
+		.radius{0.01f}
+	};
+
+	sphere[3] = {
+		.center{controlPoints[3]},
+		.radius{0.01f}
+	};
+
+#pragma endregion
 
 	grid_->Draw(camera_->GetViewProjectionMatrix(), camera_->GetViewportMatrix(), uint32_t(ObjectColor::kGrid));
 
-	sphere_->Draw(sphere, camera_->GetViewProjectionMatrix(), camera_->GetViewportMatrix(), uint32_t(ObjectColor::kSphere));
+	//sphere_->Draw(sphere[0], camera_->GetViewProjectionMatrix(), camera_->GetViewportMatrix(), uint32_t(ObjectColor::kSphere));
+	sphere_->Draw(sphere[1], camera_->GetViewProjectionMatrix(), camera_->GetViewportMatrix(), uint32_t(ObjectColor::kSphere));
+	sphere_->Draw(sphere[2], camera_->GetViewProjectionMatrix(), camera_->GetViewportMatrix(), uint32_t(ObjectColor::kSphere));
+	//sphere_->Draw(sphere[3], camera_->GetViewProjectionMatrix(), camera_->GetViewportMatrix(), uint32_t(ObjectColor::kSphere));
 
+	catmullRom_->Draw(controlPoints[0], controlPoints[1], controlPoints[2], controlPoints[3],
+		camera_->GetViewProjectionMatrix(), camera_->GetViewportMatrix(), uint32_t(ObjectColor::kCatmullRom));
 }
 
 void Game::Create_Unique() {
@@ -66,6 +96,8 @@ void Game::Create_Unique() {
 	sphere_ = make_unique<Sphere>();
 
 	grid_ = make_unique<Grid>();
+
+	catmullRom_ = make_unique<CatmullRom>();
 
 }
 

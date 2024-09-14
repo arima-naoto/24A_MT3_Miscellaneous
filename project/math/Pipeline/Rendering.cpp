@@ -216,3 +216,14 @@ Vector3 Rendering::Transform(const Vector3& vector, const Matrix4x4& matrix)
 
 	return result;
 }
+
+Vector3 Rendering::Catmull_Lerp(const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& p3, float t) {
+
+	return 0.5f * (
+		(2.0f * p1) +
+		(-p0 + p2) * t +
+		(2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * (t * t) +
+		(-p0 + 3.0f * p1 - 3.0f * p2 + p3) * (t * t * t)
+		);
+
+}

@@ -4,6 +4,7 @@
 #include "project/view/Camera.h"
 #include "project/gameObject/Sphere.h"
 #include "project/gameObject/Grid.h"
+#include "project/gameObject/CatmullRom.h"
 
 #include "memory"
 using namespace std;
@@ -41,7 +42,11 @@ private:
 	unique_ptr<Camera> camera_ = nullptr;
 	unique_ptr<Sphere> sphere_ = nullptr;
 	unique_ptr<Grid> grid_ = nullptr;
+	unique_ptr<CatmullRom> catmullRom_ = nullptr;
 
 	Affine affine_[2];
+
+	Vector3 controlPoints[4];
+
 };
 

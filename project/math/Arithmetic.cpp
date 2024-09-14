@@ -17,3 +17,5 @@ Matrix4x4 operator+(const Matrix4x4& m1, const Matrix4x4& m2) { return Calculato
 Matrix4x4 operator-(const Matrix4x4& m1, const Matrix4x4& m2) { return Calculator::Subtract(m1, m2); }
 
 Matrix4x4 operator*(const Matrix4x4& m1, const Matrix4x4& m2){ return Calculator::Multiply(m1, m2);}
+
+Vector3 operator-(const Vector3& v) { return Vector3(-v.x, -v.y, -v.z); }

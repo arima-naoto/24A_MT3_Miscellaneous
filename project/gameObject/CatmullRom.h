@@ -1,6 +1,11 @@
 #pragma once
 #include "project/math/Pipeline/Rendering.h"
+#include "vector"
+
+
 class CatmullRom : public Rendering{
+
+public:
 
 	CatmullRom() = default;
 

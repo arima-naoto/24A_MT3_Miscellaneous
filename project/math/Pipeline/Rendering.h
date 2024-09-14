@@ -30,6 +30,8 @@ public:
 
 	static Vector3 Transform(const Vector3& vector, const Matrix4x4& matrix);
 
+	static Vector3 Catmull_Lerp(const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& p3, float t);
+
 
 };
 

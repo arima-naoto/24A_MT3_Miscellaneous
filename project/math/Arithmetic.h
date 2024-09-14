@@ -19,3 +19,5 @@ Matrix4x4 operator-(const Matrix4x4& m1, const Matrix4x4& m2);
 
 Matrix4x4 operator*(const Matrix4x4& m1, const Matrix4x4& m2);
 
+Vector3 operator-(const Vector3& v);
+
